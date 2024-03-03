@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MNST</string>
+    <string name="myid">admin</string>
+    <string name="mypw">admin</string>
+    <string name="asset_statements" translatable="false">[{ \"include\": \"https://mnstbank.com:9999/.well-known/assetlinks.json\" }]</string>
+</resources><!--
+context.getResource().getString(R.string.name속값)
+
+-->

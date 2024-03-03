@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="mypackage.mnst">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/my_v3"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/my_v3_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MNST"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <service
+            android:name=".ExtendsService_1"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <meta-data
+            android:name="asset_statements"
+            android:resource="@string/asset_statements" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <tools:validation testUrl="https://mnstbank.com" />
+            <tools:validation testUrl="http://m.mnstbank.com/path/pattern/main_activity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--
+            인텐트 필터 중 하나에 android:autoVerify="true"가 있을 때 Android 6.0 이상을 실행하는 기기에 앱을 설치하면 시스템에서 앱의 인텐트 필터에 있는 URL과 연결된 모든 호스트를 확인하려고 시도합
+            시스템에서 다음이 포함된 모든 인텐트 필터를 검사합니다.
+작업: android.intent.action.VIEW
+카테고리: android.intent.category.BROWSABLE 및 android.intent.category.DEFAULT
+데이터 스키마: http 또는 https
+Android는 위의 인텐트 필터에 있는 각 고유 호스트 이름별로 디지털 애셋 링크에 대응하는 웹사이트를 https://hostname/.well-known/assetlinks.json( 웹사이트와 인텐트 필터 사이의 관계를 선언)에서 쿼리합니다.
+            -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="mnst" />
+                <data android:host="mnstbank.com" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data android:host="mnstbank.com" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:host="m.mnstbank.com" />
+                <data android:pathPattern="/path/pattern/main_activity" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
